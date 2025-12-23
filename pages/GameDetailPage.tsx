@@ -114,53 +114,6 @@ const GameDetailPage: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            <aside className="flex flex-col gap-6 lg:col-span-1">
-                                <div className="flex flex-col gap-3">
-                                    <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em]">{game.name}</h1>
-                                    <p className="text-[#9da6b9] text-base font-normal leading-normal">{game.developer}</p>
-                                </div>
-                                <div className="flex gap-2 flex-wrap">
-                                    {game.tags?.map(tag => (
-                                        <div key={tag} className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/10 px-3">
-                                            <p className="text-white text-sm font-medium leading-normal">{tag}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="flex flex-col gap-4 rounded-xl bg-white/5 p-4">
-                                    <div className="flex items-baseline justify-between">
-                                        <p className="text-2xl font-bold text-white">{game.price}</p>
-                                        <div className="flex items-center gap-1">
-                                            <span className="material-symbols-outlined text-yellow-400 !text-xl">star</span>
-                                            <span className="text-white font-semibold">{game.rating}</span>
-                                            <span className="text-gray-400 text-sm">({game.reviewCount?.toLocaleString()})</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col gap-3">
-                                        <button className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                                            <span className="truncate">Buy Now</span>
-                                        </button>
-                                        <button className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-white/10 text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-white/20 transition-colors">
-                                            <span className="truncate">Add to Wishlist</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col gap-3 text-sm">
-                                    <div className="flex justify-between border-b border-white/10 pb-2">
-                                        <span className="text-gray-400">Release Date</span>
-                                        <span className="font-medium text-white">{game.releaseDate}</span>
-                                    </div>
-                                    <div className="flex justify-between border-b border-white/10 pb-2">
-                                        <span className="text-gray-400">Publisher</span>
-                                        <span className="font-medium text-white">{game.publisher}</span>
-                                    </div>
-                                    <div className="flex justify-between pb-2">
-                                        <span className="text-gray-400">Platforms</span>
-                                        <div className="flex gap-2 items-center">
-                                            {game.platforms?.includes('windows') && <span className="material-symbols-outlined !text-lg text-white">desktop_windows</span>}
-                                            {game.platforms?.includes('mac') && <span className="material-symbols-outlined !text-lg text-white">laptop_mac</span>}
-                                        </div>
-                                    </div>
-                                </div>
                         </section>
                     </div>
                 </main>
