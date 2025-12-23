@@ -1,0 +1,5 @@
+{
+  "name": "GameStore",
+  "description": "A modern, visually appealing web application for discovering, browsing, and managing games. It features a home page with featured games, a detailed game view, a discover page with filters, and user profile management.",
+  "requestFramePermissions": []
+}
