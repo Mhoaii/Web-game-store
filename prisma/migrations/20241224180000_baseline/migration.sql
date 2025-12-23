@@ -1,3 +1,0 @@
--- This is a baseline migration for an existing database.
--- It represents the current state of the database schema.
--- Do not modify this file manually.
