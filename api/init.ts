@@ -28,6 +28,19 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       );
     `;
 
+    // Try to create the games table if it doesn't exist
+    await prisma.$queryRaw`
+      CREATE TABLE IF NOT EXISTS games (
+        id VARCHAR(255) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        description TEXT,
+        download_link TEXT,
+        image_url TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+
     res.status(200).json({
       message: 'Database initialized successfully',
       databaseConnected: true,

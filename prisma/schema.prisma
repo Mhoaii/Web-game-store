@@ -26,3 +26,15 @@ model User {
 
   @@map("users")
 }
+
+model Game {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  download_link String?
+  image_url   String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("games")
+}

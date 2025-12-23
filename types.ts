@@ -1,23 +1,13 @@
 
 export interface Game {
   id: string;
-  title: string;
-  price: string;
-  imageUrl: string;
-  developer: string;
-  publisher?: string;
-  releaseDate?: string;
-  rating?: number;
-  reviewCount?: number;
-  tags?: string[];
-  description?: string;
-  longDescription?: {
-    intro: string;
-    features: string;
-    details: string;
-  };
-  trailerImageUrl?: string;
-  media?: string[];
+  name: string;
+  description: string;
+  download_link?: string;
+  image_url?: string;
+  created_at: string;
+  updated_at: string;
+}
   platforms?: ('windows' | 'mac')[];
   isFeatured?: boolean;
   isTrending?: boolean;
