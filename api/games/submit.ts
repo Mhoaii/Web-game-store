@@ -25,6 +25,17 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       return;
     }
 
+    // Validate data URL lengths (approx 1.3MB for 1MB image)
+    const maxDataUrlLength = 2 * 1024 * 1024; // 2MB
+    if (banner_url && banner_url.length > maxDataUrlLength) {
+      res.status(400).json({ error: 'Banner image data is too large' });
+      return;
+    }
+    if (avatar_url && avatar_url.length > maxDataUrlLength) {
+      res.status(400).json({ error: 'Avatar image data is too large' });
+      return;
+    }
+
     // Create game
     const newGame = await prisma.game.create({
       data: {

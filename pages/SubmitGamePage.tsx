@@ -38,6 +38,19 @@ const SubmitGamePage: React.FC = () => {
             return;
         }
 
+        // Validate file sizes
+        const maxFileSize = 1024 * 1024; // 1MB
+        if (bannerFile && bannerFile.size > maxFileSize) {
+            setError('Banner image must be less than 1MB');
+            setIsSubmitting(false);
+            return;
+        }
+        if (avatarFile && avatarFile.size > maxFileSize) {
+            setError('Avatar image must be less than 1MB');
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
             // convert files to data URLs if provided
             const fileToDataUrl = (file: File | null): Promise<string | null> => {
