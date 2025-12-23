@@ -51,7 +51,8 @@ const SubmitGamePage: React.FC = () => {
             });
 
             if (response.ok) {
-                navigate('/');
+                // Force reload to refresh games list
+                window.location.href = '/';
             } else {
                 const errorData = await response.json();
                 setError(errorData.error || 'Failed to submit game');
