@@ -10,11 +10,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { name, description, downloadLink, imageUrl } = req.body as {
+    const { name, description, download_link, image_url } = req.body as {
       name: string;
       description: string;
-      downloadLink?: string;
-      imageUrl?: string;
+      download_link?: string;
+      image_url?: string;
     };
 
     // Validation
@@ -28,8 +28,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       data: {
         name,
         description,
-        download_link: downloadLink,
-        image_url: imageUrl
+        download_link,
+        image_url
       }
     });
 
