@@ -60,6 +60,9 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
             <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#1e2532] rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top-right z-50">
                 <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5">My Profile</Link>
                 <Link to="/submit" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5">Dashboard</Link>
+                {user.role === 'admin' && (
+                  <Link to="/admin" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5">Admin</Link>
+                )}
                 <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
                 <button onClick={logout} className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">Sign Out</button>
             </div>

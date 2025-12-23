@@ -12,6 +12,7 @@ import ProfilePage from './pages/ProfilePage';
 import AboutPage from './pages/AboutPage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
+import AdminDashboard from './pages/AdminDashboard';
 
 
 const ScrollToTop = () => {
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </HashRouter>
     </AuthProvider>
