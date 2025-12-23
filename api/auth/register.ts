@@ -1,6 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import bcrypt from 'bcryptjs';
-import { createUser, getUserByEmail } from '../../src/utils/database';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -23,7 +25,10 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     }
 
     // Check if user already exists
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await prisma.user.findUnique({
+      where: { email }
+    });
+
     if (existingUser) {
       res.status(409).json({ error: 'User with this email already exists' });
       return;
@@ -33,13 +38,16 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     const passwordHash = await bcrypt.hash(password, 12);
 
     // Create user
-    const newUser = await createUser({
-      email,
-      username,
-      passwordHash,
-      role: 'user', // Default role
-      avatarUrl: `https://ui-avatars.com/api/?background=random&color=fff&name=${username}`,
-      bio: 'I love playing games on GameStore.'
+    const newUser = await prisma.user.create({
+      data: {
+        email,
+        username,
+        password_hash: passwordHash,
+        role: 'user', // Default role
+        avatar_url: `https://ui-avatars.com/api/?background=random&color=fff&name=${username}`,
+        member_since: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+        bio: 'I love playing games on GameStore.'
+      }
     });
 
     // Return user data without password
@@ -52,6 +60,12 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
   } catch (error) {
     console.error('Registration error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({
+      error: 'Internal server error',
+      details: process.env.DATABASE_URL ? 'Database operation failed' : 'DATABASE_URL environment variable not set. Please set up Vercel Postgres.',
+      errorMessage: error instanceof Error ? error.message : String(error)
+    });
+  } finally {
+    await prisma.$disconnect();
   }
 }

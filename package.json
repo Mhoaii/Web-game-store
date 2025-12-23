@@ -9,9 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.1",
     "@types/bcryptjs": "^2.4.6",
-    "@vercel/postgres": "^0.10.0",
     "bcryptjs": "^3.0.3",
+    "prisma": "^6.19.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6"

@@ -1,6 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import bcrypt from 'bcryptjs';
-import { getUserByEmail } from '../../src/utils/database';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -18,7 +20,10 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     }
 
     // Get user from database
-    const user = await getUserByEmail(email);
+    const user = await prisma.user.findUnique({
+      where: { email }
+    });
+
     if (!user) {
       res.status(401).json({ error: 'Invalid email or password' });
       return;
@@ -41,6 +46,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({
+      error: 'Internal server error',
+      details: process.env.DATABASE_URL ? 'Database operation failed' : 'DATABASE_URL environment variable not set. Please set up Vercel Postgres.'
+    });
+  } finally {
+    await prisma.$disconnect();
   }
 }

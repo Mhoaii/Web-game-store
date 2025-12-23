@@ -8,16 +8,23 @@ const SignUpPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     setIsSubmitting(true);
-    await register(username, email, password);
-    navigate('/profile');
-    setIsSubmitting(false);
+    try {
+      await register(username, email, password);
+      navigate('/profile');
+    } catch (err: any) {
+      setError(err.message || 'Registration failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -29,6 +36,12 @@ const SignUpPage: React.FC = () => {
             <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Create Account</h1>
             <p className="text-slate-500 dark:text-slate-400">Join thousands of gamers today</p>
           </div>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm rounded-lg">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
