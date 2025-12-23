@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "npx prisma migrate deploy && npm run build",
   "rewrites": [
     {
       "source": "/api/(.*)",
