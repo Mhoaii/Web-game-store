@@ -87,10 +87,16 @@ const GameDetailPage: React.FC = () => {
                                     <div className="flex items-center justify-between">
                                         <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em]">{game.name}</h1>
                                         {game.download_link && (
-                                            <a href={game.download_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
-                                                <span className="material-symbols-outlined !text-xl">download</span>
-                                                <span>Tải Game</span>
-                                            </a>
+                                            <div className="flex gap-3">
+                                                <a href={game.download_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                                                    <span className="material-symbols-outlined !text-lg">download</span>
+                                                    <span>Tải Game</span>
+                                                </a>
+                                                <a href={game.download_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                                                    <span className="material-symbols-outlined !text-lg">play_arrow</span>
+                                                    <span>Link trải nghiệm</span>
+                                                </a>
+                                            </div>
                                         )}
                                     </div>
                                     <div className="flex flex-col gap-2">
