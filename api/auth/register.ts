@@ -1,33 +1,32 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 import bcrypt from 'bcryptjs';
 import { createUser, getUserByEmail } from '../../src/utils/database';
 
-export async function POST(request: NextRequest) {
+export default async function (req: VercelRequest, res: VercelResponse) {
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+
   try {
-    const { username, email, password } = await request.json();
+    const { username, email, password } = req.body as { username: string; email: string; password: string };
 
     // Validation
     if (!username || !email || !password) {
-      return NextResponse.json(
-        { error: 'Username, email, and password are required' },
-        { status: 400 }
-      );
+      res.status(400).json({ error: 'Username, email, and password are required' });
+      return;
     }
 
     if (password.length < 6) {
-      return NextResponse.json(
-        { error: 'Password must be at least 6 characters' },
-        { status: 400 }
-      );
+      res.status(400).json({ error: 'Password must be at least 6 characters' });
+      return;
     }
 
     // Check if user already exists
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
-      return NextResponse.json(
-        { error: 'User with this email already exists' },
-        { status: 409 }
-      );
+      res.status(409).json({ error: 'User with this email already exists' });
+      return;
     }
 
     // Hash password
@@ -46,16 +45,13 @@ export async function POST(request: NextRequest) {
     // Return user data without password
     const { password_hash, ...userWithoutPassword } = newUser;
 
-    return NextResponse.json({
+    res.status(201).json({
       message: 'User registered successfully',
       user: userWithoutPassword
     });
 
   } catch (error) {
     console.error('Registration error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
