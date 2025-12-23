@@ -1,5 +1,5 @@
 // Test script to submit a game
-fetch('/api/games/submit', {
+fetch('http://localhost:3000/api/games/submit', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
