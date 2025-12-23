@@ -81,7 +81,7 @@ const GameDetailPage: React.FC = () => {
                         <section className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                             <div className="flex flex-col gap-6 lg:col-span-2">
                                 <div className="relative w-full aspect-video rounded-xl overflow-hidden">
-                                    <div className="w-full h-full bg-center bg-no-repeat bg-cover" style={{ backgroundImage: `url("${game.image_url || '/placeholder-game.jpg'}")` }}></div>
+                                    <div className="w-full h-full bg-center bg-no-repeat bg-cover" style={{ backgroundImage: `url("${game.banner_url || game.image_url || '/placeholder-game.jpg'}")` }}></div>
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <div className="flex items-center justify-between">

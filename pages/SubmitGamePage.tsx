@@ -9,6 +9,8 @@ const SubmitGamePage: React.FC = () => {
     const [description, setDescription] = useState('');
     const [downloadLink, setDownloadLink] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const [bannerFile, setBannerFile] = useState<File | null>(null);
+    const [avatarFile, setAvatarFile] = useState<File | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
     const { user, isLoading } = useAuth();
@@ -37,6 +39,20 @@ const SubmitGamePage: React.FC = () => {
         }
 
         try {
+            // convert files to data URLs if provided
+            const fileToDataUrl = (file: File | null): Promise<string | null> => {
+                return new Promise((resolve) => {
+                    if (!file) return resolve(null);
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : null);
+                    reader.onerror = () => resolve(null);
+                    reader.readAsDataURL(file);
+                });
+            };
+
+            const bannerData = await fileToDataUrl(bannerFile);
+            const avatarData = await fileToDataUrl(avatarFile);
+
             const response = await fetch('/api/games/submit', {
                 method: 'POST',
                 headers: {
@@ -47,6 +63,8 @@ const SubmitGamePage: React.FC = () => {
                     description: description.trim(),
                     download_link: downloadLink.trim() || null,
                     image_url: imageUrl.trim() || null,
+                    banner_url: bannerData,
+                    avatar_url: avatarData
                 }),
             });
 
@@ -126,6 +144,14 @@ const SubmitGamePage: React.FC = () => {
                                             placeholder="https://example.com/image.jpg"
                                         />
                                     </label>
+                                    <label className="flex flex-col">
+                                        <p className="text-slate-800 dark:text-white text-base font-medium leading-normal pb-2">Avatar Image (optional)</p>
+                                        <input type="file" accept="image/*" onChange={(e) => setAvatarFile(e.target.files ? e.target.files[0] : null)} />
+                                    </label>
+                                    <label className="flex flex-col">
+                                        <p className="text-slate-800 dark:text-white text-base font-medium leading-normal pb-2">Banner Image (optional)</p>
+                                        <input type="file" accept="image/*" onChange={(e) => setBannerFile(e.target.files ? e.target.files[0] : null)} />
+                                    </label>
                                 </div>
                                 <div className="flex justify-end gap-4 mt-6">
                                     <button
@@ -150,15 +176,19 @@ const SubmitGamePage: React.FC = () => {
                                 <h3 className="text-slate-900 dark:text-white text-lg font-bold mb-4">Live Preview</h3>
                                 <div className="w-full aspect-[9/16] bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col overflow-hidden">
                                     <div className="w-full aspect-video bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center mb-4 overflow-hidden">
-                                        {imageUrl ? (
-                                            <img src={imageUrl} alt="Game preview" className="w-full h-full object-cover" />
-                                        ) : (
-                                            <span className="material-symbols-outlined text-4xl text-slate-400 dark:text-slate-500">image</span>
-                                        )}
-                                    </div>
+                                            {bannerFile ? (
+                                                <img src={URL.createObjectURL(bannerFile)} alt="Banner preview" className="w-full h-full object-cover" />
+                                            ) : imageUrl ? (
+                                                <img src={imageUrl} alt="Game preview" className="w-full h-full object-cover" />
+                                            ) : (
+                                                <span className="material-symbols-outlined text-4xl text-slate-400 dark:text-slate-500">image</span>
+                                            )}
+                                        </div>
                                     <div className="flex items-start gap-4 mb-4">
                                         <div className="size-16 bg-slate-200 dark:bg-slate-800 rounded-lg flex-shrink-0 flex items-center justify-center">
-                                            {imageUrl ? (
+                                            {avatarFile ? (
+                                                <img src={URL.createObjectURL(avatarFile)} alt="Avatar preview" className="w-full h-full object-cover rounded-lg" />
+                                            ) : imageUrl ? (
                                                 <img src={imageUrl} alt="Game icon" className="w-full h-full object-cover rounded-lg" />
                                             ) : (
                                                 <span className="material-symbols-outlined text-2xl text-slate-400 dark:text-slate-500">gamepad</span>
