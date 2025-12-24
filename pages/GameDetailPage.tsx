@@ -101,7 +101,7 @@ const GameDetailPage: React.FC = () => {
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <h2 className="text-white text-xl font-bold">Mô tả</h2>
-                                        <p className="text-[#9da6b9] text-base leading-relaxed">{game.description}</p>
+                                        <p className="text-[#9da6b9] text-base leading-relaxed whitespace-pre-wrap">{game.description}</p>
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <h2 className="text-white text-xl font-bold">Thông tin</h2>
