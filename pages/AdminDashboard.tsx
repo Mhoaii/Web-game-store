@@ -187,7 +187,7 @@ const AdminDashboard: React.FC = () => {
                         </div>
                         <button
                           onClick={() => handleDeleteGame(game.id)}
-                          className="ml-4 p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                          className="ml-4 p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors flex-shrink-0"
                           title="Xóa game"
                         >
                           <span className="material-symbols-outlined !text-lg">delete</span>
@@ -228,7 +228,7 @@ const AdminDashboard: React.FC = () => {
                         {user.role !== 'admin' && (
                           <button
                             onClick={() => handleDeleteUser(user.email)}
-                            className="ml-4 p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                            className="ml-4 p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors flex-shrink-0"
                             title="Xóa user"
                           >
                             <span className="material-symbols-outlined !text-lg">delete</span>
