@@ -151,7 +151,7 @@ const HomePage: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-gray-500">
-                                    <p>© 2024 GameStore. All Rights Reserved.</p>
+                                    <p>© 2025 GameStore. All Rights Reserved.</p>
                                 </div>
                             </footer>
                         </main>
