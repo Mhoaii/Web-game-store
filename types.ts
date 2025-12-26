@@ -4,6 +4,7 @@ export interface Game {
   name: string;
   description: string;
   download_link?: string;
+  experience_link?: string;
   image_url?: string;
   banner_url?: string;
   avatar_url?: string;

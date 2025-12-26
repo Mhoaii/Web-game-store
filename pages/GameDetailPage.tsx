@@ -86,16 +86,20 @@ const GameDetailPage: React.FC = () => {
                                 <div className="flex flex-col gap-4">
                                     <div className="flex items-center justify-between">
                                         <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em]">{game.name}</h1>
-                                        {game.download_link && (
+                                        { (game.download_link || game.experience_link) && (
                                             <div className="flex gap-3">
-                                                <a href={game.download_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
-                                                    <span className="material-symbols-outlined !text-lg">download</span>
-                                                    <span>Tải Game</span>
-                                                </a>
-                                                <a href={game.download_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                                                    <span className="material-symbols-outlined !text-lg">play_arrow</span>
-                                                    <span>Link trải nghiệm</span>
-                                                </a>
+                                                {game.download_link && (
+                                                    <a href={game.download_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                                                        <span className="material-symbols-outlined !text-lg">download</span>
+                                                        <span>Tải Game</span>
+                                                    </a>
+                                                )}
+                                                {game.experience_link && (
+                                                    <a href={game.experience_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                                                        <span className="material-symbols-outlined !text-lg">play_arrow</span>
+                                                        <span>Trải nghiệm</span>
+                                                    </a>
+                                                )}
                                             </div>
                                         )}
                                     </div>
@@ -114,6 +118,12 @@ const GameDetailPage: React.FC = () => {
                                                 <div className="flex justify-between border-b border-white/10 pb-2">
                                                     <span className="text-gray-400">Link tải</span>
                                                     <a href={game.download_link} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Có sẵn</a>
+                                                </div>
+                                            )}
+                                            {game.experience_link && (
+                                                <div className="flex justify-between border-b border-white/10 pb-2">
+                                                    <span className="text-gray-400">Link trải nghiệm</span>
+                                                    <a href={game.experience_link} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Có sẵn</a>
                                                 </div>
                                             )}
                                         </div>

@@ -10,10 +10,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { name, description, download_link, image_url, banner_url, avatar_url } = req.body as {
+    const { name, description, download_link, experience_link, image_url, banner_url, avatar_url } = req.body as {
       name: string;
       description: string;
       download_link?: string;
+      experience_link?: string;
       image_url?: string; // legacy
       banner_url?: string; // data URL or external URL
       avatar_url?: string; // data URL or external URL
@@ -42,6 +43,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         name,
         description,
         download_link,
+        experience_link,
         image_url: image_url || avatar_url || null,
         banner_url: banner_url || null,
         avatar_url: avatar_url || image_url || null

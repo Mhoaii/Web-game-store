@@ -8,6 +8,7 @@ const SubmitGamePage: React.FC = () => {
     const [gameName, setGameName] = useState('');
     const [description, setDescription] = useState('');
     const [downloadLink, setDownloadLink] = useState('');
+    const [experienceLink, setExperienceLink] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [bannerFile, setBannerFile] = useState<File | null>(null);
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -75,6 +76,7 @@ const SubmitGamePage: React.FC = () => {
                     name: gameName.trim(),
                     description: description.trim(),
                     download_link: downloadLink.trim() || null,
+                    experience_link: experienceLink.trim() || null,
                     image_url: imageUrl.trim() || null,
                     banner_url: bannerData,
                     avatar_url: avatarData
@@ -145,6 +147,16 @@ const SubmitGamePage: React.FC = () => {
                                             onChange={(e) => setDownloadLink(e.target.value)}
                                             className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:border-primary h-12 placeholder:text-slate-400 dark:placeholder:text-slate-500 p-3 text-base font-normal leading-normal"
                                             placeholder="https://example.com/download"
+                                        />
+                                    </label>
+                                    <label className="flex flex-col">
+                                        <p className="text-slate-800 dark:text-white text-base font-medium leading-normal pb-2">Experience Link</p>
+                                        <input
+                                            type="url"
+                                            value={experienceLink}
+                                            onChange={(e) => setExperienceLink(e.target.value)}
+                                            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:border-primary h-12 placeholder:text-slate-400 dark:placeholder:text-slate-500 p-3 text-base font-normal leading-normal"
+                                            placeholder="https://example.com/experience"
                                         />
                                     </label>
                                     <label className="flex flex-col">

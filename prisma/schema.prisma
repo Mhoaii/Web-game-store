@@ -32,6 +32,7 @@ model Game {
   name        String
   description String
   download_link String?
+  experience_link String?
   image_url   String?
   banner_url  String?
   avatar_url  String?
